@@ -1,0 +1,142 @@
+// Mindful Therapy 360 - Prisma schema for Special Education IEP generation
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id                String   @id @default(cuid())
+  name              String
+  dob               DateTime
+  grade             String
+  gender            String
+  school            String
+  parentName        String
+  parentEmail       String
+  parentPhone       String
+  diagnosis         String   @default("[]") // JSON array
+  languages         String   @default("")
+  medicalConditions String   @default("")
+  allergies         String   @default("")
+  currentTherapies  String   @default("")
+  medications       String   @default("")
+  strengths         String   @default("")
+  interests         String   @default("")
+  learningStyle     String   @default("")
+  curriculum        String   @default("IB")
+  avatarColor       String   @default("#0d9488")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  assessments       Assessment[]
+  goals             Goal[]
+  therapySessions   TherapySession[]
+  behaviourPlans    BehaviourPlan[]
+  progressRecords   ProgressRecord[]
+  reports           Report[]
+}
+
+model Assessment {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  type        String   // psychological | speech | ot | teacher | parent | behaviour | academic
+  title       String
+  rawContent  String   @default("")
+  summary     String?  // plain language summary
+  aiSummary   String?  // JSON string of structured summary
+  uploadedBy  String   @default("Therapist")
+  createdAt   DateTime @default(now())
+}
+
+model Goal {
+  id                     String   @id @default(cuid())
+  studentId              String
+  student                Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  domain                 String
+  annualGoal             String
+  baseline               String
+  objective              String
+  teachingStrategy       String
+  accommodation          String
+  modification           String
+  resources              String
+  measurementMethod      String
+  progressIndicators     String
+  reviewDate             DateTime?
+  responsibleProfessional String  @default("")
+  status                 String   @default("active") // active | achieved | on-hold
+  progress               Int      @default(0)
+  isAiGenerated          Boolean  @default(false)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  progressRecords        ProgressRecord[]
+}
+
+model TherapySession {
+  id              String   @id @default(cuid())
+  studentId       String
+  student         Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  therapyType     String
+  week            String
+  sessionTitle    String
+  objectives      String
+  activities      String
+  materials       String
+  promptingLevel  String
+  reinforcement   String
+  dataCollection  String
+  homework        String
+  isAiGenerated   Boolean  @default(false)
+  createdAt       DateTime @default(now())
+}
+
+model BehaviourPlan {
+  id                    String   @id @default(cuid())
+  studentId             String
+  student               Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  behaviourOfConcern    String
+  abcAntecedent         String
+  abcBehaviour          String
+  abcConsequence        String
+  behaviourFunction     String
+  triggers              String
+  maintainingFactors    String
+  replacementBehaviours String
+  preventiveStrategies  String
+  reactiveStrategies    String
+  rewardSystems         String
+  isAiGenerated         Boolean  @default(false)
+  createdAt             DateTime @default(now())
+}
+
+model ProgressRecord {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  goalId      String?
+  goal        Goal?    @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  date        DateTime
+  rating      Int      @default(3) // 1-5
+  note        String   @default("")
+  recordedBy  String   @default("Therapist")
+  domain      String   @default("")
+  createdAt   DateTime @default(now())
+}
+
+model Report {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  type        String
+  title       String
+  content     String
+  isAiGenerated Boolean @default(false)
+  createdAt   DateTime @default(now())
+}

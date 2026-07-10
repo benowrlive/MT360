@@ -1,0 +1,19 @@
+# Keep the Docker build context small & correct
+node_modules
+.next
+.git
+.gitignore
+*.log
+dev.log
+server.log
+db/*.db
+db/*.db-journal
+.env
+.env.local
+.env.*.local
+verify-*.png
+README.md
+worklog.md
+skills
+examples
+mini-services

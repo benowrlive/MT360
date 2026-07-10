@@ -1,0 +1,37 @@
+# ─── Mindful Therapy 360 — Render.com blueprint ──────────────────────
+# Deploy in one click: https://render.com/docs/blueprint-specs
+# Push this repo to GitHub, create a new Blueprint on Render, point to this file.
+
+databases:
+  - name: mindful-therapy-360-db
+    databaseName: mindful_therapy_360
+    plan: free            # bump to starter for production
+    ipAllowList: []       # restrict in production
+
+services:
+  - type: web
+    name: mindful-therapy-360
+    runtime: node          # Render's native Node runtime
+    plan: free             # bump to starter+ for production
+    region: singapore      # pick the closest region
+    rootDir: .
+    buildCommand: |
+      bun install --frozen-lockfile || bun install &&
+      bunx prisma generate &&
+      bun run build
+    startCommand: bunx prisma db push --skip-generate && bun .next/standalone/server.js
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mindful-therapy-360-db
+          property: connectionString
+      - key: ZAI_API_KEY
+        sync: false        # set manually in the Render dashboard
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+      - key: NEXTAUTH_URL
+        value: https://mindful-therapy-360.onrender.com   # change to your Render URL
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /
+    autoDeploy: true

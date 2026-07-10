@@ -1,0 +1,50 @@
+# ─── Mindful Therapy 360 — Docker Compose (single command deploy) ─────
+# Quick start (SQLite):   docker compose up -d
+# Production (Postgres):  uncomment the db service + set DATABASE_URL, then `docker compose up -d`
+
+services:
+  mindful-therapy-360:
+    build: .
+    container_name: mindful-therapy-360
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # ── Use SQLite (default, single server) ──
+      DATABASE_URL: file:./db/custom.db
+      # ── OR use Postgres (uncomment the db service below + this line) ──
+      # DATABASE_URL: postgresql://pa:pa_pass@db:5432/mindful_therapy_360?schema=public
+      ZAI_API_KEY: ${ZAI_API_KEY}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      NODE_ENV: production
+    volumes:
+      # Persist the SQLite file across restarts
+      - mt360_data:/app/db
+    # If using Postgres, wait for it:
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
+
+  # ── Postgres (production-grade, multi-user safe) ──
+  # db:
+  #   image: postgres:16-alpine
+  #   container_name: mindful-therapy-360-db
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_USER: mt360
+  #     POSTGRES_PASSWORD: pa_pass
+  #     POSTGRES_DB: mindful_therapy_360
+  #   volumes:
+  #     - mt360_pg_data:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U mt360 -d mindful_therapy_360"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 5
+  #   ports:
+  #     - "5432:5432"
+
+volumes:
+  mt360_data:
+  # mt360_pg_data:

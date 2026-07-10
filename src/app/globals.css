@@ -1,0 +1,333 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* ── Mindful Therapy 360 theme ────────────────────────────────────
+     Light, playful dashboard. Vibrant purple primary (#5B4CFF), green
+     secondary (#22C55E), white cards, light-purple sidebar (#F5F0FF). */
+  --radius: 0.75rem;
+  --background: oklch(0.99 0.003 290);        /* near-white, faint purple tint */
+  --foreground: oklch(0.21 0.02 280);         /* #111827-ish */
+  --card: oklch(1 0 0);                       /* pure white cards */
+  --card-foreground: oklch(0.21 0.02 280);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.02 280);
+  --primary: oklch(0.55 0.28 285);            /* #5B4CFF vibrant purple */
+  --primary-foreground: oklch(0.99 0.003 290); /* white */
+  --secondary: oklch(0.96 0.025 290);         /* light purple wash */
+  --secondary-foreground: oklch(0.4 0.18 285); /* purple-tinted dark */
+  --muted: oklch(0.97 0.005 290);             /* #F5F0FF-ish */
+  --muted-foreground: oklch(0.55 0.015 270);  /* #6B7280 gray text */
+  --accent: oklch(0.96 0.04 290);             /* soft purple accent */
+  --accent-foreground: oklch(0.4 0.18 285);
+  --destructive: oklch(0.577 0.245 27.325);   /* red */
+  --border: oklch(0.92 0.006 280);            /* #E5E7EB */
+  --input: oklch(0.94 0.006 280);
+  --ring: oklch(0.55 0.28 285);               /* purple ring */
+  /* Chart colors: green secondary, then the KPI-tile palette */
+  --chart-1: oklch(0.55 0.28 285);            /* purple #5B4CFF */
+  --chart-2: oklch(0.72 0.19 145);            /* green #22C55E */
+  --chart-3: oklch(0.62 0.2 250);             /* blue #3B82F6 */
+  --chart-4: oklch(0.76 0.16 70);             /* orange #F59E0B */
+  --chart-5: oklch(0.68 0.12 195);            /* teal #14B8A6 */
+  /* Sidebar: light purple wash */
+  --sidebar: oklch(0.965 0.02 290);           /* #F5F0FF */
+  --sidebar-foreground: oklch(0.3 0.02 280);  /* dark text */
+  --sidebar-primary: oklch(0.55 0.28 285);    /* purple active */
+  --sidebar-primary-foreground: oklch(0.99 0.003 290); /* white */
+  --sidebar-accent: oklch(0.94 0.035 290);    /* hover purple */
+  --sidebar-accent-foreground: oklch(0.4 0.18 285);
+  --sidebar-border: oklch(0.9 0.015 290);
+  --sidebar-ring: oklch(0.55 0.28 285);
+}
+
+.dark {
+  /* Dark variant: deep purple-black with the same purple primary */
+  --background: oklch(0.16 0.012 280);
+  --foreground: oklch(0.97 0.005 290);
+  --card: oklch(0.21 0.02 282);
+  --card-foreground: oklch(0.97 0.005 290);
+  --popover: oklch(0.21 0.02 282);
+  --popover-foreground: oklch(0.97 0.005 290);
+  --primary: oklch(0.65 0.26 285);            /* slightly brighter purple */
+  --primary-foreground: oklch(0.18 0.03 285);
+  --secondary: oklch(0.27 0.03 285);
+  --secondary-foreground: oklch(0.97 0.005 290);
+  --muted: oklch(0.26 0.02 285);
+  --muted-foreground: oklch(0.72 0.015 290);
+  --accent: oklch(0.32 0.06 285);
+  --accent-foreground: oklch(0.92 0.04 290);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.65 0.26 285);
+  --chart-1: oklch(0.65 0.26 285);
+  --chart-2: oklch(0.72 0.19 145);
+  --chart-3: oklch(0.62 0.2 250);
+  --chart-4: oklch(0.76 0.16 70);
+  --chart-5: oklch(0.68 0.12 195);
+  --sidebar: oklch(0.19 0.015 285);
+  --sidebar-foreground: oklch(0.95 0.005 290);
+  --sidebar-primary: oklch(0.65 0.26 285);
+  --sidebar-primary-foreground: oklch(0.18 0.03 285);
+  --sidebar-accent: oklch(0.27 0.03 285);
+  --sidebar-accent-foreground: oklch(0.95 0.005 290);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.65 0.26 285);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar */
+.iep-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted-foreground) transparent;
+}
+.iep-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.iep-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.iep-scroll::-webkit-scrollbar-thumb {
+  background-color: oklch(0.7 0.02 180 / 0.5);
+  border-radius: 8px;
+}
+.iep-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: oklch(0.55 0.2 285 / 0.7);
+}
+
+.iep-gradient {
+  background: linear-gradient(135deg, oklch(0.55 0.28 285) 0%, oklch(0.5 0.2 305) 100%);
+}
+
+@keyframes iep-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.iep-fade-in {
+  animation: iep-fade-in 0.35s ease-out;
+}
+
+/* ─── Liquid Glass material dressing ─────────────────────────────── */
+/* The liquid-glass.js library owns the optics (SVG displacement filter +
+   backdrop-filter wiring). This dressing is what makes the panel read as
+   glass: tint for legibility, 1px specular border, top highlight, drop shadow.
+   Apply on the SAME element you pass to useLiquidGlass().
+   NOTE: border-radius is NOT set here — control it via Tailwind classes
+   (rounded-2xl, rounded-[28px], etc.) so it can vary per surface. The lib
+   reads the computed border-radius for its displacement map. */
+.lg-glass {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  box-shadow:
+    0 24px 60px rgba(15, 60, 55, 0.28),
+    0 2px 8px rgba(15, 60, 55, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -8px 20px rgba(255, 255, 255, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
+/* Dark-mode variant: darker tint, brighter specular */
+.dark .lg-glass {
+  background: linear-gradient(
+    180deg,
+    rgba(20, 30, 35, 0.32) 0%,
+    rgba(15, 25, 30, 0.46) 100%
+  );
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0 -8px 20px rgba(255, 255, 255, 0.04),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+/* When the browser can't do SVG-filtered backdrops (Safari/Firefox), the
+   library applies a plain frosted blur; tighten the tint so text stays crisp. */
+.lg-glass.lg-fallback {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.42) 100%
+  );
+}
+.dark .lg-glass.lg-fallback {
+  background: linear-gradient(
+    180deg,
+    rgba(25, 35, 40, 0.72) 0%,
+    rgba(20, 28, 32, 0.82) 100%
+  );
+}
+
+/* A subtler glass for smaller chrome (topbar, pills, logo medallions). */
+.lg-glass-sm {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  box-shadow:
+    0 8px 24px rgba(15, 60, 55, 0.16),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+.dark .lg-glass-sm {
+  background: linear-gradient(
+    180deg,
+    rgba(20, 30, 35, 0.28) 0%,
+    rgba(15, 25, 30, 0.4) 100%
+  );
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Aurora backdrop (for the login screen) ──────────────────────── */
+/* Vibrant purple/green/blue orbs (Mindful Therapy 360 palette) the glass refracts. */
+.aurora {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 0% 0%, oklch(0.9 0.08 285) 0%, transparent 50%),
+    radial-gradient(100% 70% at 100% 100%, oklch(0.9 0.08 145) 0%, transparent 55%),
+    linear-gradient(135deg, oklch(0.85 0.11 285) 0%, oklch(0.82 0.1 305) 50%, oklch(0.84 0.09 250) 100%);
+}
+.dark .aurora {
+  background:
+    radial-gradient(120% 80% at 0% 0%, oklch(0.3 0.12 285) 0%, transparent 50%),
+    radial-gradient(100% 70% at 100% 100%, oklch(0.3 0.1 145) 0%, transparent 55%),
+    linear-gradient(135deg, oklch(0.22 0.07 285) 0%, oklch(0.2 0.07 305) 50%, oklch(0.24 0.06 250) 100%);
+}
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.75;
+  will-change: transform;
+}
+.aurora::before {
+  width: 46vw;
+  height: 46vw;
+  min-width: 320px;
+  min-height: 320px;
+  top: -8%;
+  left: -6%;
+  background: radial-gradient(circle, oklch(0.62 0.26 285) 0%, transparent 70%);
+  animation: aurora-drift-a 18s ease-in-out infinite alternate;
+}
+.aurora::after {
+  width: 52vw;
+  height: 52vw;
+  min-width: 360px;
+  min-height: 360px;
+  bottom: -12%;
+  right: -8%;
+  background: radial-gradient(circle, oklch(0.72 0.19 145) 0%, transparent 70%);
+  animation: aurora-drift-b 22s ease-in-out infinite alternate;
+}
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: 0.6;
+  will-change: transform;
+}
+.aurora-orb--c {
+  width: 30vw; min-width: 240px;
+  height: 30vw; min-height: 240px;
+  top: 30%; left: 55%;
+  background: radial-gradient(circle, oklch(0.62 0.2 250) 0%, transparent 70%);
+  animation: aurora-drift-c 26s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(8vw, 6vh, 0) scale(1.12); }
+}
+@keyframes aurora-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-7vw, -5vh, 0) scale(1.15); }
+}
+@keyframes aurora-drift-c {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-10vw, 8vh, 0) scale(1.2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora::before, .aurora::after, .aurora-orb { animation: none; }
+}
+
+/* ─── Ambient backdrop (post-login workspace) ────────────────────── */
+/* Soft color washes behind the main content area so liquid-glass cards
+   have something to refract. Much subtler than the login aurora.
+   Mindful Therapy 360 palette: purple / green / blue. */
+.ambient-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 50% at 10% 5%, oklch(0.82 0.1 285 / 0.32) 0%, transparent 60%),
+    radial-gradient(50% 45% at 92% 95%, oklch(0.8 0.09 145 / 0.26) 0%, transparent 65%),
+    radial-gradient(38% 35% at 78% 18%, oklch(0.82 0.08 250 / 0.2) 0%, transparent 70%);
+}
+.dark .ambient-backdrop {
+  background:
+    radial-gradient(55% 50% at 10% 5%, oklch(0.32 0.12 285 / 0.4) 0%, transparent 60%),
+    radial-gradient(50% 45% at 92% 95%, oklch(0.3 0.1 145 / 0.32) 0%, transparent 65%),
+    radial-gradient(38% 35% at 78% 18%, oklch(0.32 0.1 250 / 0.26) 0%, transparent 70%);
+}
