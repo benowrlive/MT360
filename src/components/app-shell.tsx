@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import { useAppStore, STUDENT_VIEWS } from "@/lib/store";
 import type { ViewId } from "@/lib/types";
 import { useSession, signOut } from "next-auth/react";
@@ -108,7 +109,13 @@ export function AppShell() {
       </div>
     );
   }
-  if (!session) return <LoginScreen />;
+  if (!session) {
+    return (
+      <Suspense fallback={null}>
+        <LoginScreen />
+      </Suspense>
+    );
+  }
   return <AppShellContent />;
 }
 
