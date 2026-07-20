@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000 2>&1 | tee dev.log",
-    "vercel-build": "node scripts/set-prisma-provider.js && prisma generate && prisma db push --accept-data-loss && next build",
+    "vercel-build": "node scripts/set-prisma-provider.js && prisma generate && node scripts/safe-db-push.js && next build",
     "build": "node scripts/set-prisma-provider.js && prisma generate && next build",
     "start": "next start",
     "lint": "eslint .",
@@ -12,7 +12,9 @@
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:reset": "prisma migrate reset"
+    "db:reset": "prisma migrate reset",
+    "db:export": "node scripts/export-data.js",
+    "db:import": "node scripts/import-data.js"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",
