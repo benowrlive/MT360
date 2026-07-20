@@ -1,0 +1,31 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "bun run vercel-build",
+  "installCommand": "bun install",
+  "github": {
+    "silent": true
+  },
+  "env": {
+    "NEXTAUTH_URL": {
+      "description": "Public URL of the deployment (Vercel sets this automatically via VERCEL_URL; set NEXTAUTH_URL explicitly to the production domain)"
+    },
+    "DATABASE_URL": {
+      "description": "Postgres connection string (Vercel Postgres, Neon, Supabase, etc.)"
+    },
+    "ZAI_API_KEY": {
+      "description": "Z.ai API key (powers all AI features)"
+    },
+    "NEXTAUTH_SECRET": {
+      "description": "Random secret for JWT signing (openssl rand -base64 32)"
+    },
+    "ADMIN_EMAIL": {
+      "description": "Demo admin email (default admin@mindfultherapy360.com)",
+      "optional": true
+    },
+    "ADMIN_PASSWORD": {
+      "description": "Demo admin password (default genius123)",
+      "optional": true
+    }
+  }
+}

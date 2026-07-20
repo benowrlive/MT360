@@ -1,4 +1,11 @@
 // Mindful Therapy 360 - Prisma schema for Special Education IEP generation
+//
+// Database provider is selected by the DATABASE_URL scheme:
+//   - file:./...        → SQLite (local dev)
+//   - postgresql://...  → Postgres (Vercel / production)
+//
+// For Vercel deployment: set DATABASE_URL to a Postgres connection string
+// (Vercel Postgres, Neon, Supabase, etc.) and PRISMA_PROVIDER=postgresql.
 
 generator client {
   provider = "prisma-client-js"
